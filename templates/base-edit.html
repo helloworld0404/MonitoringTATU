@@ -1,0 +1,679 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.6.3/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static './css/bootstrap.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <title>Bazani tahrirlash | Monitoring</title>
+    <style>
+		.btn-1{
+			width: 450px;
+			height: 50px;
+			background-color: transparent;
+			border: 1px solid #00B894;
+			color: #00B894;
+			border-radius: 20px;
+			
+			cursor: pointer;
+			transition: 0.5s all;
+			font-size: 18px;
+		  }
+		  .btn-1:hover {
+			background-color: #00B894;
+			color: #fefefe;
+		  }
+        </style>
+</head>
+
+<body class="h-100 d-flex flex-column justify-content-between body" >
+    <!-- Main start -->
+    <main class="flex-grow-1">
+        <div class="container-fluid px-3">
+            <div class="row" style="width: 100% !important;
+            max-width: 100% !important;">
+                <div class="col-12 col-md-3 d-flex d-md-block flex-wrap justify-content-between border-end px-0">
+                    <div class="d-flex align-items-center justify-content-between flex-wrap pb-3 p-5 pt-4 border-bottom">
+                        <a href="/">
+                            <img src="{% static './images/logo.png' %}" alt="Site logo" width="250" />
+                        </a>
+                    </div>
+                    <a class="d-flex align-items-center my-2 my-md-5 px-3 text-decoration-none text-black-50 "
+                    href="/">
+                    <i class="fa-solid fa-laptop-code"></i>
+                    <span class="fs-5 mx-3">Kompyuterlar</span>
+                </a>
+                <a
+                    class="d-flex align-items-center my-2 my-md-5 px-3 text-decoration-none text-black-50"
+                    href="/printer/"
+                >
+                    <i class="fa-solid fa-print"></i>
+                    <span class="fs-5 mx-3">Printerlar</span>
+                </a>
+                <a
+                    class="d-flex align-items-center my-2 my-md-5 px-3 text-decoration-none text-black-50"
+                    href="/proektor/"
+                >
+                    <i class="fa-brands fa-product-hunt"></i>
+                    <span class="fs-5 mx-3">Proektorlar</span>
+                </a>
+                <a
+                    class="d-flex align-items-center my-2 my-md-5 px-3 text-decoration-none text-black-50"
+                    href="/wifi/"
+                >
+                    <i class="fa-solid fa-wifi"></i>
+                    <span class="fs-5 mx-3">Wi-Fi routerlar</span>
+                </a>
+                <a
+                    class="d-flex align-items-center my-2 my-md-5 px-3 text-decoration-none text-black-50"
+                    href="/camera/"
+                >
+                    <i class="fa-solid fa-camera"></i>
+                    <span class="fs-5 mx-3">Kameralar</span>
+                </a>
+                
+                    <div
+                        class="d-flex align-items-center justify-content-between flex-wrap  text-decoration-none text-black-50  border-top pt-2">
+                        <a href="/base-edit/"
+                            class="d-flex align-items-center my-2 my-md-1 px-3 text-decoration-none m-2 mb-1 p-3 w-100  text-light bg-primary bg-gradient rounded-4">
+                            <i class="fa-solid fa-screwdriver-wrench fa-beat"></i>
+                            <span class="fs-5 mx-3">Bazani tahrirlash</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Info bo'limi -->
+                
+
+                <div class="col-1 col-md-9 p-2" >
+                    <div >
+
+                        <div class="col-12   my-2 p-3" style="margin-left: 20px;">
+                            <p class="text-start " style="font-size: 48px; margin-top: -10px;">Bazani tahrirlash</p>
+                            <div class="row">
+                                <div class="col-12 shadow rounded-4 my-2 p-5" >
+                                    <div class="d-flex align-items-center">
+                                        <p class="m-0 mb-4 fs-4">
+                                            Qurilma turini tanlang:
+                                        </p>
+                                        <div class="button "> 
+                                            <select id="colorselector" class="dropdown">
+                                               <option value="komputer" style="border-radius: 50px;">Komputer</option>
+                                               <option value="printerlar">Printerlar</option>
+                                               <option value="proektorlar">Proektorlar</option>
+                                               <option value="wi-fi-routerlar">Wi-Fi routerlar</option>
+                                               <option value="kameralar">Kameralar</option>
+                                              
+                                            </select>
+                                          </div>
+                                        
+                            </div>
+                                   <span class="msg"></span>
+                                   <div class="output">
+                                    <form action="" method="get">
+                                   <div class="all_wrapper colors " style="display: block;" id="komputer">
+                                   <div class="wrapper">
+                                    <table class="wrapper-left">
+                                        {% for i in device_info %}
+                                        {% if i.device.slug == 'kompyuterlar' %}
+                                        <td>
+                                            <p>Umumiy soni:</p>
+                                            <div class="wrap">
+                                                <p class="total_num">{{i.total_number}}</p>
+                                                <img src="{% static 'images/edit.png' %}" alt="" class="img3" onclick="openClose()">
+                                            </div>
+                                            <div class="wrap1">
+                                                <input type="number" class="inputVal"  >
+                                                <a href="#" onclick="AddToCart({{i.id}})"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="">
+                                        
+                                                    <img src="{% static 'images/check-check.png' %}" alt="" class="img2" onclick="openClose()"></a>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p>Ish faoliyatida:</p>
+                                            <div class="wrap wrap3">
+                                                <p class="total_work">{{i.in_work}}</p>
+                                                <img src="{% static 'images/edit.png' %}" alt="" class="img3" onclick="openClosee()">
+                                            </div>
+                                            <div class="wrap1 wrap4">
+                                                <input type="number" class="inputVal"  name='number' id="2">
+                                                <a href="#" onclick="AddToCart({{i.id}})"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="top: 140px;">
+                                        
+                                                    <img src="{% static 'images/check-check.png' %}" alt="" class="img2" onclick="openClosee()"
+                                                        style="top: 152px;"></a>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p>Buzilgan:</p>
+                                            <div class="wrap wrap5">
+                                                <p>{{i.broken}}</p>
+                                                <img src="{% static 'images/edit.png' %}" alt="" class="img3" onclick="openCloseee()">
+                                            </div>
+                                            <div class="wrap1 wrap6">
+                                               <input type="number" class="inputVal"  name='number'>
+                                                <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt=""
+                                                        style="top: 243px; left: 289px;">
+                                        
+                                                    <img src="{% static 'images/check-check.png' %}" alt="" class="img2" onclick="openCloseee() "
+                                                        style="top: 255px; left: 301px;"></a>
+                                            </div>
+                                        </td>
+                                       
+                                      
+                                    </table>
+                                    <table class="wrapper-left" style="margin-right: 100px;">
+                                        <td><p>Yangi qo‘shildi:</p>
+                                            
+                                            <div class="wrap1 wrapp" >
+                                                <input type="number" class="inputVal"  name="number">
+                                            <a href="#" onclick="AddToCart({{i.id}})"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="left: 829px;">
+                                            
+                                            <img src="{% static 'images/check-check.png' %}" alt="" class="img2"  style="left: 840px; "></a>
+                                        </div>
+                                        </td>
+
+                                        <td><p>Ta’mirlandi:</p>
+                                         
+                                            <div class="wrap1 wrapp" >
+                                            <input type="number"  part="1">
+                                            <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="left: 829px; top: 141px;">
+                                            
+                                            <img src="{% static 'images/check-check.png' %}" alt="" class="img2"  style="left: 840px; top: 153px;"></a>
+                                        </div>
+                                        </td>
+
+
+                                        <td><p>Buzildi:</p>
+                                         
+                                            <div class="wrap1 wrapp" >
+                                            <input type="number" part="1">
+                                            <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="left: 829px; top: 244px;">
+                                            
+                                            <img src="{% static 'images/check-check.png' %}" alt="" class="img2"  style="left: 840px; top: 256px;"></a>
+                                        </div>
+                                        </td>
+                                      
+                                    </table>
+                                   </div> {% endif %}
+                                        {% endfor %}
+                                   <div class="sana"><p>Sana:</p>
+                                    <div class="wrap ">
+                                        {% for i in device_info|slice:"0:1" %}
+                                          <p>{{i.time}}</p>
+                                        {% endfor %}
+                                        
+                                     
+                                        <img src="{% static 'images/edit.png' %}" alt="" class="img3"  onclick="openClose16()">
+                                    </div>
+                                    <div class="wrap1 wrap40" >
+                                    <input type="number" part="1">
+                                    <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="top: -12px; left: 239px;">
+                                    
+                                    <img src="{% static 'images/check-check.png' %}" alt="" class="img2" onclick="openClose16()" style="top: 0; left: 250px;"></a>
+                                </div>
+                                    
+                                </div>
+                                <div class="create">
+                                    <a href="/"><button class="btn1 btn15" type="submit">O‘zgartirishlarni bekor qilish</button></a>
+                                    <a href="/" onclick="openClose17()"><button class="btn2" type="submit">O‘zgaririshlarni saqlash</button></a>
+                                </div>
+                            </div></form> 
+                            <div class="all_wrapper colors" id="printerlar">
+                                <div class="wrapper">
+                                 <table class="wrapper-left">
+                                     <td><p>Umumiy soni:</p>
+                                         <div class="wrap wrap9">
+                                             <p>124</p>
+                                            <img src="{% static 'images/edit.png' %}" alt="" class="img3"  onclick="openClose1()">
+                                         </div>
+                                         <div class="wrap1 wrap10" >
+                                         <input type="number" part="1">
+                                         <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="">
+                                         
+                                         <img src="{% static 'images/check-check.png' %}" alt="" class="img2" onclick="openClose1()" ></a>
+                                         
+                                     </div>
+                                     </td>
+                                     <td><p>Ish faoliyatida:</p>
+                                         <div class="wrap wrap11">
+                                             <p>124</p>
+                                            <img src="{% static 'images/edit.png' %}" alt="" class="img3"  onclick="openClose2()">
+                                         </div>
+                                         <div class="wrap1 wrap12" >
+                                         <input type="number" part="1">
+                                         <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="top: 140px;">
+                                         
+                                         <img src="{% static 'images/check-check.png' %}" alt="" class="img2" onclick="openClosee2()" style="top: 152px;"></a>
+                                     </div>
+                                     </td>
+                                     <td><p>Buzilgan:</p>
+                                         <div class="wrap wrap13">
+                                             <p>124</p>
+                                            <img src="{% static 'images/edit.png' %}" alt="" class="img3"  onclick="openClose3()">
+                                         </div>
+                                         <div class="wrap1 wrap14" >
+                                         <input type="number" part="1">
+                                         <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="top: 243px; left: 289px;">
+                                         
+                                         <img src="{% static 'images/check-check.png' %}" alt="" class="img2" onclick="openClose3() " style="top: 255px; left: 301px;" ></a>
+                                     </div>
+                                     </td>
+                                   
+                                 </table>
+                                 <table class="wrapper-left" style="margin-right: 100px;">
+                                     <td><p>Yangi qo‘shildi:</p>
+                                      
+                                         <div class="wrap1 wrapp" >
+                                         <input type="number" part="1">
+                                         <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="left: 829px;">
+                                         
+                                         <img src="{% static 'images/check-check.png' %}" alt="" class="img2"  style="left: 840px; "></a>
+                                     </div>
+                                     </td>
+
+                                     <td><p>Ta’mirlandi:</p>
+                                      
+                                         <div class="wrap1 wrapp" >
+                                         <input type="number" part="1">
+                                         <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="left: 829px; top: 141px;">
+                                         
+                                         <img src="{% static 'images/check-check.png' %}" alt="" class="img2"  style="left: 840px; top: 153px;"></a>
+                                     </div>
+                                     </td>
+
+
+                                     <td><p>Buzildi:</p>
+                                      
+                                         <div class="wrap1 wrapp" >
+                                         <input type="number" part="1">
+                                         <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="left: 829px; top: 244px;">
+                                         
+                                         <img src="{% static 'images/check-check.png' %}" alt="" class="img2"   style="left: 840px; top: 256px;"></a>
+                                     </div>
+                                     </td>
+                                   
+                                 </table>
+                                </div>
+                                <div class="sana"><p>Sana:</p>
+                                 <div class="wrap wrap15">
+                                    {% for i in device_info|slice:"0:1" %}
+                                    <p>{{i.time}}</p>
+                                  {% endfor %}
+                                    <img src="{% static 'images/edit.png' %}" alt="" class="img3"  onclick="openClose4()">
+                                 </div>
+                                 <div class="wrap1 wrap16" >
+                                 <input type="number" part="1">
+                                 <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="top: -12px; left: 239px;">
+                                    
+                                 
+                                 <img src="{% static 'images/check-check.png' %}" alt="" class="img2" onclick="openClose4()" style="top: 0; left: 250px;"></a>
+                             </div>
+                             </div>
+                             <div class="create">
+                                <a href="/"><button class="btn1 btn15" type="submit">O‘zgartirishlarni bekor qilish</button></a>
+                                <a href="#" onclick="openClose17()"><button class="btn2" type="submit">O‘zgaririshlarni saqlash</button></a>
+                             </div>
+                         </div>
+                         <div class="all_wrapper colors" id="proektorlar">
+                            <div class="wrapper">
+                             <table class="wrapper-left">
+                                 <td><p>Umumiy soni:</p>
+                                     <div class="wrap wrap17">
+                                         <p>124</p>
+                                        <img src="{% static 'images/edit.png' %}" alt="" class="img3"  onclick="openClose5()">
+                                        
+                                     </div>
+                                     <div class="wrap1 wrap18" >
+                                     <input type="number" part="1">
+                                     <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="">
+                                     
+                                     <img src="{% static 'images/check-check.png' %}" alt="" class="img2" onclick="openClose5()" ></a>
+                                 </div>
+                                 </td>
+                                 <td><p>Ish faoliyatida:</p>
+                                     <div class="wrap wrap19">
+                                         <p>124</p>
+                                        <img src="{% static 'images/edit.png' %}" alt="" class="img3"  onclick="openClose6()">
+                                     </div>
+                                     <div class="wrap1 wrap20" >
+                                     <input type="number" part="1">
+                                     <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="top: 140px;">
+                                     
+                                     <img src="{% static 'images/check-check.png' %}" alt="" class="img2" onclick="openClose6()" style="top: 152px;"></a>
+                                 </div>
+                                 </td>
+                                 <td><p>Buzilgan:</p>
+                                     <div class="wrap wrap21">
+                                         <p>124</p>
+                                        <img src="{% static 'images/edit.png' %}" alt="" class="img3"  onclick="openClose7()">
+                                     </div>
+                                     <div class="wrap1 wrap22" >
+                                     <input type="number" part="1">
+                                     <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="top: 243px; left: 289px;">
+                                     
+                                     <img src="{% static 'images/check-check.png' %}" alt="" class="img2" onclick="openClose7() "style="top: 55px; left: 301px;" ></a>
+                                 </div>
+                                 </td>
+                               
+                             </table>
+                             <table class="wrapper-left" style="margin-right: 100px;">
+                                 <td><p>Yangi qo‘shildi:</p>
+                                  
+                                     <div class="wrap1 wrapp" >
+                                     <input type="number" part="1">
+                                     <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="left: 829px;">
+                                        
+                                     
+                                     <img src="{% static 'images/check-check.png' %}" alt="" class="img2"  style="left: 840px; "></a>
+                                 </div>
+                                 </td>
+
+                                 <td><p>Ta’mirlandi:</p>
+                                  
+                                     <div class="wrap1 wrapp" >
+                                     <input type="number" part="1">
+                                     <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="left: 829px; top: 141px;">
+                                     
+                                     <img src="{% static 'images/check-check.png' %}" alt="" class="img2"  style="left: 840px; top: 153px;"></a>
+                                 </div>
+                                 </td>
+
+
+                                 <td><p>Buzildi:</p>
+                                  
+                                     <div class="wrap1 wrapp" >
+                                     <input type="number" part="1">
+                                     <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="left: 829px; top: 244px;">
+                                     
+                                     <img src="{% static 'images/check-check.png' %}" alt="" class="img2"  style="left: 840px; top: 256px;"></a>
+                                 </div>
+                                 </td>
+                               
+                             </table>
+                            </div>
+                            <div class="sana"><p>Sana:</p>
+                             <div class="wrap wrap23">
+                                {% for i in device_info|slice:"0:1" %}
+                                <p>{{i.time}}</p>
+                              {% endfor %}
+                                <img src="{% static 'images/edit.png' %}" alt="" class="img3"  onclick="openClose8()">
+                             </div>
+                             <div class="wrap1 wrap24" >
+                             <input type="number" part="1">
+                             <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="top: -12px; left: 239px;">
+                             
+                             <img src="{% static 'images/check-check.png' %}" alt="" class="img2" onclick="openClose8()" style="top: 0; left: 250px;"></a>
+                             
+                         </div>
+                         </div>
+                         <div class="create">
+                            <a href="/"><button class="btn1 btn15" type="submit">O‘zgartirishlarni bekor qilish</button></a>
+                            <a href="#" onclick="openClose17()"><button class="btn2" type="submit">O‘zgaririshlarni saqlash</button></a>
+                         </div>
+                     </div>
+                     <div class="all_wrapper colors" id="wi-fi-routerlar">
+                        <div class="wrapper">
+                         <table class="wrapper-left">
+                             <td><p>Umumiy soni:</p>
+                                 <div class="wrap wrap25">
+                                     <p>124</p>
+                                    <img src="{% static 'images/edit.png' %}" alt="" class="img3"  onclick="openClose9()">
+                                 </div>
+                                 <div class="wrap1 wrap26" >
+                                 <input type="number" part="1">
+                                 <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="">
+                                    
+                                 
+                                 <img src="{% static 'images/check-check.png' %}" alt="" class="img2" onclick="openClose9()" ></a>
+                             </div>
+                             </td>
+                             <td><p>Ish faoliyatida:</p>
+                                 <div class="wrap wrap27">
+                                     <p>124</p>
+                                    <img src="{% static 'images/edit.png' %}" alt="" class="img3"  onclick="openClose10()">
+                                 </div>
+                                 <div class="wrap1 wrap28" >
+                                 <input type="number" part="1">
+                                 <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="top: 140px;">
+                                 
+                                 <img src="{% static 'images/check-check.png' %}" alt="" class="img2" onclick="openClose10()" style="top: 152px;"></a>
+                             </div>
+                             </td>
+                             <td><p>Buzilgan:</p>
+                                 <div class="wrap wrap29">
+                                     <p>124</p>
+                                    <img src="{% static 'images/edit.png' %}" alt="" class="img3"  onclick="openClose11()">
+                                 </div>
+                                 <div class="wrap1 wrap30" >
+                                 <input type="number" part="1">
+                                 <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="top: 243px; left: 289px;">
+                                 
+                                 <img src="{% static 'images/check-check.png' %}" alt="" class="img2" onclick="openClose11() "style="top: 255px; left: 301px;" ></a>
+                                 
+                             </div>
+                             </td>
+                           
+                         </table>
+                         <table class="wrapper-left" style="margin-right: 100px;">
+                             <td><p>Yangi qo‘shildi:</p>
+                              
+                                 <div class="wrap1 wrapp" >
+                                 <input type="number" part="1">
+                                 <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="left: 829px;">
+                                    
+                                 
+                                 <img src="{% static 'images/check-check.png' %}" alt="" class="img2"  style="left: 840px; "></a>
+                                 
+                             </div>
+                             </td>
+
+                             <td><p>Ta’mirlandi:</p>
+                              
+                                 <div class="wrap1 wrapp" >
+                                 <input type="number" part="1">
+                                 <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="left: 829px; top: 141px;">
+                                 
+                                 <img src="{% static 'images/check-check.png' %}" alt="" class="img2"  style="left: 840px; top: 153px;"></a>
+                             </div>
+                             </td>
+
+
+                             <td><p>Buzildi:</p>
+                              
+                                 <div class="wrap1 wrapp" >
+                                 <input type="number" part="1">
+                                 <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="left: 829px; top: 244px;">
+                                 
+                                 <img src="{% static 'images/check-check.png' %}" alt="" class="img2"  style="left: 840px; top: 256px;"></a>
+                             </div>
+                             </td>
+                           
+                         </table>
+                        </div>
+                        <div class="sana"><p>Sana:</p>
+                         <div class="wrap wrap31">
+                            {% for i in device_info|slice:"0:1" %}
+                            <p>{{i.time}}</p>
+                          {% endfor %}
+                            <img src="{% static 'images/edit.png' %}" alt="" class="img3"  onclick="openClose12()">
+                         </div>
+                         <div class="wrap1 wrap32" >
+                         <input type="number" part="1">
+                         <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="top: -12px; left: 239px;">
+                         
+                         <img src="{% static 'images/check-check.png' %}" alt="" class="img2" onclick="openClose12()" style="top: 0; left: 250px;"></a>
+                     </div>
+                     </div>
+                     <div class="create">
+                        <a href="/"><button class="btn1 btn15" type="submit">O‘zgartirishlarni bekor qilish</button></a>
+                        <a href="#" onclick="openClose17()"><button class="btn2" type="submit">O‘zgaririshlarni saqlash</button></a>
+                     </div>
+                 </div>
+                 <div class="all_wrapper colors" id="kameralar">
+                    <div class="wrapper">
+                     <table class="wrapper-left">
+                         <td><p>Umumiy soni:</p>
+                             <div class="wrap wrap33">
+                                 <p>124</p>
+                                <img src="{% static 'images/edit.png' %}" alt="" class="img3"  onclick="openClose13()">
+                             </div>
+                             <div class="wrap1 wrap34" >
+                             <input type="number" part="1">
+                             <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="">
+                                
+                             
+                             <img src="{% static 'images/check-check.png' %}" alt="" class="img2" onclick="openClose13()" ></a>
+                         </div>
+                         </td>
+                         <td><p>Ish faoliyatida:</p>
+                             <div class="wrap wrap35">
+                                 <p>124</p>
+                                <img src="{% static 'images/edit.png' %}" alt="" class="img3"  onclick="openClose14()">
+                             </div>
+                             <div class="wrap1 wrap36" >
+                             <input type="number" part="1">
+                             <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="top: 140px;">
+                             
+                             <img src="{% static 'images/check-check.png' %}" alt="" class="img2" onclick="openClose14()" style="top: 152px;"></a>
+                         </div>
+                         </td>
+                         <td><p>Buzilgan:</p>
+                             <div class="wrap wrap37">
+                                 <p>124</p>
+                                <img src="{% static 'images/edit.png' %}" alt="" class="img3"  onclick="openClose15()">
+                             </div>
+                             <div class="wrap1 wrap38" >
+                             <input type="number" part="1">
+                             <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="top: 243px; left: 289px;">
+                             
+                             <img src="{% static 'images/check-check.png' %}" alt="" class="img2" onclick="openClose15() "style="top: 255px; left: 301px;" ></a>
+                         </div>
+                         </td>
+                       
+                     </table>
+                     <table class="wrapper-left" style="margin-right: 100px;">
+                         <td><p>Yangi qo‘shildi:</p>
+                          
+                             <div class="wrap1 wrapp" >
+                             <input type="number" part="1">
+                             <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="left: 829px;">
+                             
+                             <img src="{% static 'images/check-check.png' %}" alt="" class="img2"  style="left: 840px; "></a>
+                         </div>
+                         </td>
+
+                         <td><p>Ta’mirlandi:</p>
+                          
+                             <div class="wrap1 wrapp" >
+                             <input type="number" part="1">
+                             <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="left: 829px; top: 141px;">
+                             
+                             <img src="{% static 'images/check-check.png' %}" alt="" class="img2"  style="left: 840px; top: 153px;"></a>
+                         </div>
+                         </td>
+
+
+                         <td><p>Buzildi:</p>
+                          
+                             <div class="wrap1 wrapp" >
+                             <input type="number" part="1">
+                             <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="left: 829px; top: 244px;">
+                             
+                             <img src="{% static 'images/check-check.png' %}" alt="" class="img2"  style="left: 840px; top: 256px;"></a>
+                         </div>
+                         </td>
+                       
+                     </table>
+                    </div>
+                    <div class="sana"><p>Sana:</p>
+                     <div class="wrap wrap39">
+                        {% for i in device_info|slice:"0:1" %}
+                        <p>{{i.time}}</p>
+                      {% endfor %}
+                        <img src="{% static 'images/edit.png' %}" alt="" class="img3"  onclick="openClose16()">
+                     </div>
+                     <div class="wrap1 wrap40" >
+                     <input type="number" part="1">
+                     <a href="#"><img src="{% static 'images/apply=default.png' %}" class="img1" alt="" style="top: -12px; left: 239px;">
+                     
+                     <img src="{% static 'images/check-check.png' %}" alt="" class="img2" onclick="openClose16()" style="top: 0; left: 250px;"></a>
+                 </div>
+                 </div>
+                 <div class="create">
+                     <a href="/"><button class="btn1 btn15" type="submit">O‘zgartirishlarni bekor qilish</button></a>
+                     <a href="#" onclick="openClose17()"><button class="btn2" type="submit">O‘zgaririshlarni saqlash</button></a>
+                 </div>
+             </div>
+            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </main>
+    <div class="succses1 " onclick="openClose17()">
+        <img src="{% static "images/Vector.png" %}" alt="">
+        <h2>O‘zgartirishlar <br> muvaffaqqiyatli saqlandi!</h2>
+        <a href="/"><button class="btn">Yopish</button></a>
+    </div>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="{% static './js/script.js' %}"></script>
+    <script>
+       
+              function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = cookies[i].trim();
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            
+            function AddToCart(obj){
+                let csrftoken =  getCookie('csrftoken');
+                 //console.log(document.cookie)
+                let num = document.querySelector(".inputVal")
+
+                let url = '/base-update/' + `?update=${num.value}&obj_id=${obj}`
+                fetch(url).then(
+                    res => res.json()
+                )
+                .then(data => {
+                  if (data.status == 200) {
+                    let el = document.querySelector(".total_num")
+                    el.innerHTML = data["total"]
+                    
+                    
+                    document.
+                    setTimeout(() => {
+                      document.body.removeChild(div)
+                    }, 2000)
+                   
+                  }
+                  else{
+                    alert("not")
+                  }
+                  console.log(data)
+                })
+                .catch(err => console.log(err))
+              }
+            
+    </script>
+</body>
+
+</html>

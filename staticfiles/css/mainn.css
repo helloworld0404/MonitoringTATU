@@ -1,0 +1,23 @@
+.app{
+  display: none;
+}
+.card {
+  width: 300px;
+  text-align: center;
+  background: #ff3700;
+  color: #ffffff;
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  margin-top: 5%;
+  box-shadow: 0 0 10px .1px black;
+}
+
+@media (max-width: 999px) {
+  .app{
+    display: block;
+  }
+}
